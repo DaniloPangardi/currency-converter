@@ -5,7 +5,6 @@ import java.text.MessageFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import br.com.jaya.currencyconverter.dto.ExchangeRatesResponse;
@@ -23,7 +22,7 @@ public class ExchangeRatesService {
 		this.restTemplate = restTemplate;
 	}
 
-	public double getExchangeRate(String originCurrency, String destinationCurrency) throws RestClientException, Exception {
+	public double getExchangeRate(String originCurrency, String destinationCurrency) {
 		var url = MessageFormat.format(urlBase, originCurrency);
 		var response = restTemplate.getForObject(url, ExchangeRatesResponse.class);
 		return response.getRate(destinationCurrency);

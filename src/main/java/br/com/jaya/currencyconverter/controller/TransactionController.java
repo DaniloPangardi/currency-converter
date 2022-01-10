@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestClientException;
 
 import br.com.jaya.currencyconverter.dto.TransactionRequest;
 import br.com.jaya.currencyconverter.dto.TransactionResponse;
@@ -30,7 +29,7 @@ public class TransactionController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public TransactionResponse transaction(@RequestBody TransactionRequest transactionRequest) throws RestClientException, Exception {
+	public TransactionResponse transaction(@RequestBody TransactionRequest transactionRequest) {
 		return transactionService.transaction(transactionRequest);
 	}
 	

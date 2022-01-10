@@ -2,8 +2,6 @@ package br.com.jaya.currencyconverter.dto;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.NoSuchElementException;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import br.com.jaya.currencyconverter.dto.ExchangeRatesResponse;
+import br.com.jaya.currencyconverter.exception.ExchangeRatesNotFoundException;
 
 public class ExchangeRatesResponseTest {
 	
@@ -35,10 +33,11 @@ public class ExchangeRatesResponseTest {
 	
     @Test
 	void testExpectedExceptionFail() throws Exception {
-    	NoSuchElementException assertThrows = Assertions.assertThrows(NoSuchElementException.class, () -> {
+    	ExchangeRatesNotFoundException assertThrows 
+    	= Assertions.assertThrows(ExchangeRatesNotFoundException.class, () -> {
     		exchangeRatesResponse.getRate(EMPTY_STRING);
     	});
-    	assertEquals(NoSuchElementException.class, assertThrows.getClass());
+    	assertEquals(ExchangeRatesNotFoundException.class, assertThrows.getClass());
 	}
 
     @Test

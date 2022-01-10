@@ -10,10 +10,10 @@ import java.util.stream.Collectors;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClientException;
 
 import br.com.jaya.currencyconverter.dto.TransactionRequest;
 import br.com.jaya.currencyconverter.dto.TransactionResponse;
+import br.com.jaya.currencyconverter.exception.ResourceNotFoundException;
 import br.com.jaya.currencyconverter.model.Transaction;
 import br.com.jaya.currencyconverter.repository.TransactionRepository;
 
@@ -31,7 +31,7 @@ public class TransactionService {
 		this.transactionRepository = transactionRepository;
 	}
 	
-	public TransactionResponse transaction(TransactionRequest request) throws RestClientException, Exception {
+	public TransactionResponse transaction(TransactionRequest request) {
 		
 		var exchangeRate =  exchangeRatesService.getExchangeRate(
 				request.getOriginCurrency(),
@@ -64,17 +64,24 @@ public class TransactionService {
 				.build();
 	}
 	
+
+	public List<TransactionResponse> getByUserId(Long userId) {
+		
+		var transactions = transactionRepository.getByUserId(userId);
+		
+		if(transactions.isEmpty()) {
+			throw new ResourceNotFoundException("Resource not found for userId: " + userId);
+		}
+		
+		return transactions.stream()
+				.map(t -> fromModelToResponse(t))
+				.collect(Collectors.toList());
+	}
+	
 	private TransactionResponse fromModelToResponse(Transaction transaction) {
 		var response = new TransactionResponse();
 		BeanUtils.copyProperties(transaction, response);
 		return response;
-	}
-
-	public List<TransactionResponse> getByUserId(Long userId) {
-		var transactions = transactionRepository.getByUserId(userId);
-		return transactions.stream()
-				.map(t -> fromModelToResponse(t))
-				.collect(Collectors.toList());
 	}
 	
 }
