@@ -3,6 +3,9 @@ package br.com.jaya.currencyconverter.service;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +60,7 @@ public class TransactionService {
 				.destinationCurrency(request.getDestinationCurrency())
 				.destinationValue(destinationValue)
 				.conversionRateUsed(exchangeRate)
-				.dateHourTransaction(LocalDateTime.now())
+				.dateHourTransaction(LocalDateTime.now(ZoneOffset.UTC))
 				.build();
 	}
 	
@@ -65,6 +68,13 @@ public class TransactionService {
 		var response = new TransactionResponse();
 		BeanUtils.copyProperties(transaction, response);
 		return response;
+	}
+
+	public List<TransactionResponse> getByUserId(Long userId) {
+		var transactions = transactionRepository.getByUserId(userId);
+		return transactions.stream()
+				.map(t -> fromModelToResponse(t))
+				.collect(Collectors.toList());
 	}
 	
 }
