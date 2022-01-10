@@ -6,7 +6,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
+import lombok.ToString;
 
+@ToString
 @Getter
 public class TransactionRequest {
 	
@@ -21,4 +23,5 @@ public class TransactionRequest {
 	
 	@NotBlank
 	private String destinationCurrency;
+	
 }
