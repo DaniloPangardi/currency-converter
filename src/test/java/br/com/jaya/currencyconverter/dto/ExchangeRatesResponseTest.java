@@ -2,6 +2,8 @@ package br.com.jaya.currencyconverter.dto;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.NoSuchElementException;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,10 +35,10 @@ public class ExchangeRatesResponseTest {
 	
     @Test
 	void testExpectedExceptionFail() throws Exception {
-    	RuntimeException assertThrows = Assertions.assertThrows(RuntimeException.class, () -> {
+    	NoSuchElementException assertThrows = Assertions.assertThrows(NoSuchElementException.class, () -> {
     		exchangeRatesResponse.getRate(EMPTY_STRING);
     	});
-    	assertEquals(RuntimeException.class, assertThrows.getClass());
+    	assertEquals(NoSuchElementException.class, assertThrows.getClass());
 	}
 
     @Test

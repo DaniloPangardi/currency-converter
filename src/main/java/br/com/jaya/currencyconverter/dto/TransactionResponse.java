@@ -9,8 +9,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TransactionResponse {
-	private long transactionId;
-	private long userId;
+	private Long id;
+	private Long userId;
 	private String originCurrency;
 	private BigDecimal originValue;
 	private String destinationCurrency;
