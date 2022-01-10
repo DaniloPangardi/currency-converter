@@ -2,12 +2,23 @@ package br.com.jaya.currencyconverter.dto;
 
 import java.math.BigDecimal;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import lombok.Getter;
 
 @Getter
 public class TransactionRequest {
-	private long userId;
+	
+	@NotNull
+	private Long userId;
+	
+	@NotBlank
 	private String originCurrency;
+	
+	@NotNull
 	private BigDecimal originValue;
+	
+	@NotBlank
 	private String destinationCurrency;
 }
