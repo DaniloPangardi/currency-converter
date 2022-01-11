@@ -15,14 +15,14 @@ Tem como objetivo realizar a conversão entre duas moedas.
 * Jasypt
 
 ## Notas Técnicas
-* A exposição da API é em modelo REST e todos os conteúdos retornados estão em formatos JSON.
+* A exposição da API é em modelo REST e todos os conteúdos retornados estão em formato JSON.
 
-##Guidelines
+## Guidelines
 - File name:
   - camelCase
 - Classes:
   - PascalCase
-Pacotes:
+- Pacotes:
   - config: Configurações da aplicação
   - controller: Controllers da aplicação
   - dto: Objetos que trafegam entre camadas
