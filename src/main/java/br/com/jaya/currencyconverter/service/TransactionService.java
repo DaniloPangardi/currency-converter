@@ -48,7 +48,9 @@ public class TransactionService {
 		var transaction = fromRequestToModel(request, exchangeRate, destinationValue);
 		
 		LOG.info("Saving transaction. Object model: {}", transaction);
-		transaction = transactionRepository.save(transaction);
+		var id = transactionRepository.save(transaction).getId();
+		
+		transaction.setId(id);
 		
 		LOG.info("Transaction saved successfully. Object{}", transaction);
 		return fromModelToResponse(transaction);
@@ -80,7 +82,7 @@ public class TransactionService {
 		var transactions = transactionRepository.getByUserId(userId);
 		
 		if(transactions.isEmpty()) {
-			throw new ResourceNotFoundException("Resource not found for userId: " + userId);
+			throw new ResourceNotFoundException("Resource not found for this userId.");
 		}
 		
 		LOG.info("{} transaction(s) found from userId: {}.", transactions.size(), userId);
