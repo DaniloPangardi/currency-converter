@@ -16,14 +16,13 @@ import org.springframework.stereotype.Service;
 import br.com.jaya.currencyconverter.dto.TransactionRequest;
 import br.com.jaya.currencyconverter.dto.TransactionResponse;
 import br.com.jaya.currencyconverter.exception.ResourceNotFoundException;
-import br.com.jaya.currencyconverter.exceptionhandler.ApiExceptionHandler;
 import br.com.jaya.currencyconverter.model.Transaction;
 import br.com.jaya.currencyconverter.repository.TransactionRepository;
 
 @Service
 public class TransactionService {
 	
-    private static final Logger LOG = LoggerFactory.getLogger(ApiExceptionHandler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TransactionService.class);
 
     private ExchangeRatesService exchangeRatesService;
 	
